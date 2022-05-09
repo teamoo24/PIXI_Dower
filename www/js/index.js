@@ -26,10 +26,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const PIXI = __importStar(require("pixi.js"));
 let app;
 let player;
+let keys = {};
+let keysDiv;
 window.onload = () => {
     app = new PIXI.Application({
         width: window.innerWidth,
-        height: window.innerHeight,
+        height: window.innerHeight * 0.9,
         backgroundColor: 0xAAAAAA
     });
     document.body.appendChild(app.view);
@@ -40,11 +42,40 @@ window.onload = () => {
     player.y = app.view.height / 2;
     app.stage.addChild(player);
     app.stage.interactive = true;
+    keysDiv = document.querySelector("#keys");
     let onPointerMove = (e) => {
         let pos = e.data.global;
         player.x = pos.x;
         player.y = pos.y;
     };
+    let keysDown = (e) => {
+        keys[e.keyCode] = true;
+    };
+    let keysUp = (e) => {
+        keys[e.keyCode] = false;
+    };
+    let gameLoop = () => {
+        keysDiv.innerHTML = JSON.stringify(keys);
+        // W
+        if (keys["87"]) {
+            player.y -= 5;
+        }
+        // A
+        if (keys["65"]) {
+            player.x -= 5;
+        }
+        // S
+        if (keys["83"]) {
+            player.y += 5;
+        }
+        // D
+        if (keys["68"]) {
+            player.x += 5;
+        }
+    };
+    app.ticker.add(gameLoop);
+    window.addEventListener("keydown", keysDown);
+    window.addEventListener("keyup", keysUp);
     // touch interaction
     app.stage.interactive = true;
     app.stage
