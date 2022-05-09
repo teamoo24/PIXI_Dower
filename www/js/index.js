@@ -40,7 +40,7 @@ window.onload = () => {
     player.y = app.view.height / 2;
     app.stage.addChild(player);
     app.stage.interactive = true;
-    let onPointerDown = (e) => {
+    let onPointerMove = (e) => {
         let pos = e.data.global;
         player.x = pos.x;
         player.y = pos.y;
@@ -48,6 +48,5 @@ window.onload = () => {
     // touch interaction
     app.stage.interactive = true;
     app.stage
-        .on("pointerdown", onPointerDown)
-        .on("pointermove", onPointerDown);
+        .on("pointermove", onPointerMove);
 };

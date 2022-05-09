@@ -23,7 +23,7 @@ window.onload = () => {
     app.stage.addChild(player)
     app.stage.interactive = true;
 
-    let onPointerDown = (e: { data: { global: any; }; }) => {
+    let onPointerMove = (e: { data: { global: any; }; }) => {
         let pos = e.data.global;
 
         player.x = pos.x;
@@ -34,6 +34,5 @@ window.onload = () => {
     // touch interaction
     app.stage.interactive = true;
     app.stage
-    .on("pointerdown", onPointerDown)
-    .on("pointermove", onPointerDown)
+    .on("pointermove", onPointerMove)
 }
